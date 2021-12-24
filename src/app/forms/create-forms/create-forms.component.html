@@ -1,13 +1,30 @@
 <mat-card style="width: 80%; margin: auto;">
   <h4>Create a post</h4>
-  <mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>Title</mat-label>
-    <input matInput [(ngModel)]="postTitleText" type="text" style="width: 100%;">
-  </mat-form-field>
-  <mat-form-field appearance="fill" style="width: 100%;">
-    <mat-label>Description</mat-label>
-    <textarea matInput [(ngModel)]="postDescriptionAreaText" style="width: 100%;"></textarea>
-  </mat-form-field>
-  <br>
-  <button mat-raised-button color="accent" (click)="OnPostClicked()">Post</button>
+  <form (submit)="onPostClicked(postForm)" #postForm="ngForm">
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Title</mat-label>
+      <input matInput
+      name="title"
+      type="text"
+      style="width: 100%;"
+      ngModel
+      minlength="3"
+      #postTitle="ngModel"
+      required>
+      <mat-error *ngIf="postTitle.invalid">Invalid title</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 100%;">
+      <mat-label>Description</mat-label>
+      <textarea matInput
+      name="description"
+      style="width: 100%;"
+      ngModel
+      #postDescription="ngModel"
+      required></textarea>
+      <mat-error *ngIf="postDescription.invalid">Invalid description</mat-error>
+    </mat-form-field>
+    <br>
+    <button mat-raised-button color="accent" type="submit">Post</button>
+  </form>
+
 </mat-card>

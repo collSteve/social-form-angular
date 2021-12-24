@@ -1,7 +1,16 @@
 <div style="display: flex; flex-direction: column; width: 100%;">
   <div style="display: flex; flex-direction: row; justify-content: flex-start;">
-    <button mat-icon-button color="accent" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite_border</mat-icon>
+    <button mat-icon-button aria-label="Example icon-button with heart icon" (click)="toggleLike()">
+      <div *ngIf="liked; then thenBlock else elseBlock"></div>
+      <ng-template #thenBlock>
+        <mat-icon color="warn">favorite</mat-icon>
+      </ng-template>
+      <ng-template #elseBlock>
+        <mat-icon color="basic">favorite_border</mat-icon>
+      </ng-template>
+
+      <!-- <mat-icon *ngIf="liked" color="basic">favorite_border</mat-icon>
+      <mat-icon *ngIf="!liked" color="accent">favorite</mat-icon> -->
     </button>
     <button mat-icon-button color="basic" aria-label="Example icon-button with heart icon">
       <mat-icon>chat_bubble_outline</mat-icon>

@@ -9,9 +9,21 @@ export class FormDescriptionsComponent implements OnInit {
   @Input() description: string | undefined = "";
   @Input() num_likes: number = 0;
 
+  liked: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleLike() {
+    if (this.liked) {
+      this.liked = false;
+      this.num_likes--;
+    } else {
+      this.liked = true;
+      this.num_likes++;
+    }
   }
 
 }

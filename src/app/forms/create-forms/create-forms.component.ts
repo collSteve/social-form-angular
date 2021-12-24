@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Post, PostEmissionObject } from '../post.model';
+import { PostsService } from '../posts.service';
 
 @Component({
   selector: 'app-create-forms',
@@ -7,26 +9,29 @@ import { Post, PostEmissionObject } from '../post.model';
   styleUrls: ['./create-forms.component.css']
 })
 export class CreateFormsComponent implements OnInit {
-  postDescriptionAreaText: string = "";
-  submittedPostDescriptionText: string = "";
-  postTitleText: string = "";
-
   post : Post = {author:"Steve"};
-  @Output() postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
+  postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
 
-  constructor() { }
+  constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
   }
 
-  OnPostClicked() {
-    this.submittedPostDescriptionText = this.postDescriptionAreaText;
+  onPostClicked(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
 
-    this.post.post_description = this.postDescriptionAreaText
-    this.post.title = this.postTitleText;
+    this.post.title = form.value.title;
+    this.post.post_description = form.value.description;
 
-    const e: PostEmissionObject = {post: JSON.parse(JSON.stringify(this.post))}; //  copy
-    this.postCreatedEventEmitter.emit(e);
+    const new_post: Post = JSON.parse(JSON.stringify(this.post));
+    this.postsService.addPost(new_post);
+
+    form.resetForm();
+
+    // const e: PostEmissionObject = {post: new_post}; //  copy
+    // this.postCreatedEventEmitter.emit(e);
   }
 
 }
