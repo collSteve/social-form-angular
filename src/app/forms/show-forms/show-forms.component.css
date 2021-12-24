@@ -1,0 +1,33 @@
+.post-card {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+}
+
+.post-author-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-pic-icon {
+  max-width: 30px;
+  max-height: 30px;
+}
+
+.post-image-container {
+  width: 100%;
+}
+
+.post-image {
+  width: 100%;
+}
+
+#no-post-warning-text {
+  text-align: center;
+}

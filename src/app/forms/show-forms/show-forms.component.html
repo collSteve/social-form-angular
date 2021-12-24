@@ -1,0 +1,20 @@
+<div id="posts-container" *ngIf="posts.length > 0">
+  <mat-card class="post-card" *ngFor="let post of posts">
+    <div class="post-author-header">
+      <img class="profile-pic-icon" [src]="post.profile_pic" alt="">
+      <h4 style="font-weight: bold;">{{post.author}}</h4>
+    </div>
+    <h4 *ngIf="post.title != null && post.title !=''">
+      {{post.title}}
+    </h4>
+    <div class="post-image-container">
+      <img class="post-image" [src]="post.post_img" alt="">
+    </div>
+    <app-form-descriptions [description]="post.post_description"></app-form-descriptions>
+  </mat-card>
+</div>
+
+<h2 id="no-post-warning-text" *ngIf="posts.length <= 0">
+  No posts available
+</h2>
+

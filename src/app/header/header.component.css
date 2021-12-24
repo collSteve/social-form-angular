@@ -1,0 +1,18 @@
+.navigation-btn {
+  display: inline-block;
+  width: auto;
+  margin-left: 2em;
+}
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#nav-btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
