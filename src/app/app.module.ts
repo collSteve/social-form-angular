@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ShowFormsComponent } from './forms/show-forms/show-forms.component';
 import { FormDescriptionsComponent } from './forms/show-forms/form-descriptions/form-descriptions.component';
 import { HeaderComponent } from './header/header.component';
+import { DevShowCreatePostComponent } from './forms/dev-show-create-post/dev-show-create-post.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HeaderComponent } from './header/header.component';
     CreateFormsComponent,
     ShowFormsComponent,
     FormDescriptionsComponent,
-    HeaderComponent
+    HeaderComponent,
+    DevShowCreatePostComponent
   ],
   imports: [
     BrowserModule,

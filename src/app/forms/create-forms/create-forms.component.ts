@@ -1,4 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Post, PostEmissionObject } from '../post.model';
 
 @Component({
   selector: 'app-create-forms',
@@ -10,8 +11,8 @@ export class CreateFormsComponent implements OnInit {
   submittedPostDescriptionText: string = "";
   postTitleText: string = "";
 
-  post : {title?: string, description?:string, author:string, image?:string} = {author:"Steve"};
-  @Output() postCreatedEventEmitter = new EventEmitter();
+  post : Post = {author:"Steve"};
+  @Output() postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
 
   constructor() { }
 
@@ -21,10 +22,10 @@ export class CreateFormsComponent implements OnInit {
   OnPostClicked() {
     this.submittedPostDescriptionText = this.postDescriptionAreaText;
 
-    this.post.description = this.postDescriptionAreaText
+    this.post.post_description = this.postDescriptionAreaText
     this.post.title = this.postTitleText;
 
-    const e = {post: this.post};
+    const e: PostEmissionObject = {post: JSON.parse(JSON.stringify(this.post))}; //  copy
     this.postCreatedEventEmitter.emit(e);
   }
 

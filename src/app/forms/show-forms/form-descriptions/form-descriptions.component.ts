@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./form-descriptions.component.css']
 })
 export class FormDescriptionsComponent implements OnInit {
-  @Input() description: string = "";
+  @Input() description: string | undefined = "";
   @Input() num_likes: number = 0;
 
   constructor() { }
