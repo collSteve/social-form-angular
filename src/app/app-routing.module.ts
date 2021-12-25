@@ -6,6 +6,7 @@ import { ShowFormsComponent } from './forms/show-forms/show-forms.component';
 import { DevShowCreatePostComponent } from './forms/dev-show-create-post/dev-show-create-post.component';
 
 const routes: Routes = [
+  { path: '',   redirectTo: '/show-posts', pathMatch: 'full' },
   {path: "create-post", component: CreateFormsComponent},
   {path: "show-posts", component: ShowFormsComponent},
   {path: "dev", component: DevShowCreatePostComponent},

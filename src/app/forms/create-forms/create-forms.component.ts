@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Post, PostEmissionObject } from '../post.model';
 import { PostsService } from '../posts.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-create-forms',
@@ -10,9 +11,9 @@ import { PostsService } from '../posts.service';
 })
 export class CreateFormsComponent implements OnInit {
   post : Post = {author:"Steve"};
-  postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
+  // postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
   }
@@ -29,9 +30,14 @@ export class CreateFormsComponent implements OnInit {
     this.postsService.addPost(new_post);
 
     form.resetForm();
+    this.openSnackBar("New post created successfully!", "close");
 
     // const e: PostEmissionObject = {post: new_post}; //  copy
     // this.postCreatedEventEmitter.emit(e);
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
 }
