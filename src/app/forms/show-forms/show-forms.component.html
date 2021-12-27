@@ -1,9 +1,14 @@
 <div id="posts-container" *ngIf="posts.length > 0">
   <mat-card class="post-card" *ngFor="let post of posts">
-    <div class="post-author-header">
-      <img class="profile-pic-icon" [src]="post.profile_pic" alt="">
-      <h4 style="font-weight: bold;">{{post.author}}</h4>
+    <!-- post header -->
+    <div class="post-header">
+      <div class="post-author-header">
+        <img class="profile-pic-icon" [src]="post.profile_pic" alt="">
+        <h4 style="font-weight: bold;">{{post.author}}</h4>
+      </div>
+      <button mat-button color="basic" (click)="onPostOptionsClicked(post.id? post.id: null)"><mat-icon>more_vert</mat-icon></button>
     </div>
+
     <h4 *ngIf="post.title != null && post.title !=''">
       {{post.title}}
     </h4>
@@ -14,7 +19,12 @@
   </mat-card>
 </div>
 
-<h2 id="no-post-warning-text" *ngIf="posts.length <= 0">
-  No posts available
-</h2>
+<mat-card *ngIf="posts.length <= 0" style="width: 80%; margin: auto; margin-top: 3rem; background: gray; color: white;">
+  <h4 id="no-post-warning-text">
+    Looks like there is no posts yet...
+  </h4>
+</mat-card>
+
+<!-- <p *ngFor="let post of posts">{{devStringify(post)}}</p> -->
+
 

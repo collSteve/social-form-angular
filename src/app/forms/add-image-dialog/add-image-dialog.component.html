@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Add An Image</h1>
+<div mat-dialog-content>
+  <p>From online source:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>URL Link</mat-label>
+    <input matInput [(ngModel)]="img_link">
+  </mat-form-field>
+
+  <p>From local storage:</p>
+  <p>Sorry we currently do not support this feature.</p>
+
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button (click)="onSubmit()" cdkFocusInitial>Ok</button>
+</div>
+

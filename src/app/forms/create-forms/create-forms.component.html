@@ -1,6 +1,7 @@
 <mat-card style="width: 80%; margin: auto;">
   <h4>Create a post</h4>
-  <form (submit)="onPostClicked(postForm)" #postForm="ngForm">
+  <form (submit)="onPostClicked(postForm)" #postForm="ngForm" style="display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
+    <!-- input title -->
     <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Title</mat-label>
       <input matInput
@@ -13,6 +14,22 @@
       required>
       <mat-error *ngIf="postTitle.invalid">Invalid title</mat-error>
     </mat-form-field>
+
+    <!-- input image -->
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; gap: 50px;">
+      <div *ngFor="let img_link of showImagesList()" style="display: flex; flex-direction: column; width: 100px;">
+        <img [src]="img_link" alt="" style="width: 100px; height: 140px;">
+        <!-- <p>{{img_link}}</p> -->
+      </div>
+
+      <button mat-stroked-button color="basic" type="button" style="width: 100px; height: 140px;" (click)="onAddImageClicked()">
+        <mat-icon>add_box</mat-icon>
+      </button>
+    </div>
+
+
+
+    <!-- input description -->
     <mat-form-field appearance="fill" style="width: 100%;">
       <mat-label>Description</mat-label>
       <textarea matInput
@@ -28,3 +45,4 @@
   </form>
 
 </mat-card>
+

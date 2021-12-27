@@ -4,7 +4,7 @@ export interface Post {
   post_img?: string,
   post_description?: string,
   title?: string,
-  id?: string
+  id: string|null
 }
 
 export interface PostsGetRequestResponseObject {
@@ -19,10 +19,15 @@ export interface PostPostRequestObject {
 }
 
 export interface PostPostRequestResponseObject {
-  status?: number
-  message?:string
+  addedPostSuccessful: boolean
+  status?: number,
+  message?:string,
+  post_id?: string
 }
 
+export interface PostDeleteRequestResponseObject {
+
+}
 
 export interface PostEmissionObject {
   post: Post

@@ -2,6 +2,9 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { Post } from '../post.model';
 import { PostsService } from '../posts.service';
+import { MatDialog } from '@angular/material/dialog';
+import { PostOptionsDialogComponent } from './post-options-dialog/post-options-dialog.component';
+import { PostOptionsDialogInitData, PostOptionsDialogReturnData, PostReturnAction } from './post-options-dialog/postOptions.model';
 
 @Component({
   selector: 'app-show-forms',
@@ -10,15 +13,11 @@ import { PostsService } from '../posts.service';
 })
 export class ShowFormsComponent implements OnInit, OnDestroy {
 
-  posts: Post[] = [
-    {author: "Steve", title: "Cool pic", profile_pic:"", post_img:"https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg", post_description:"HAHAHAHA adwswdw"},
-    {author: "Alice", profile_pic:"", post_img:"https://images.unsplash.com/photo-1453728013993-6d66e9c9123a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8Zm9jdXN8ZW58MHx8MHx8&w=1000&q=80", post_description:"Yo alice here"},
-    {author: "Newton", profile_pic:"", post_img:"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg", post_description:"Newton here"},
-  ];
+  posts: Post[] = [];
 
   private postsSubscription: Subscription|null = null;
 
-  constructor(private postsService: PostsService) { }
+  constructor(private postsService: PostsService, public optionsDialog: MatDialog) { }
 
   ngOnInit(): void {
     this.posts = this.postsService.getPosts();
@@ -30,5 +29,32 @@ export class ShowFormsComponent implements OnInit, OnDestroy {
     if (this.postsSubscription) {
       this.postsSubscription.unsubscribe();
     }
+  }
+
+  onPostOptionsClicked(post_id: string|null) {
+    if (!post_id) return;
+    const postOptionsInitData: PostOptionsDialogInitData = {post_id:post_id};
+
+    const dialogRef = this.optionsDialog.open(PostOptionsDialogComponent, {
+      width: '250px',
+      data: postOptionsInitData,
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe((result: PostOptionsDialogReturnData) => {
+      console.log('The dialog was closed');
+      if (result.action == PostReturnAction.Delete) {
+        console.log(`deleting id:${post_id}`);
+        this.postsService.deletePost(post_id);
+      }
+      else if (result.action == PostReturnAction.Edit) {
+        console.log(`editing id:${post_id}`);
+      }
+    });
+  }
+
+
+  devStringify(o: any) {
+    return JSON.stringify(o);
   }
 }
