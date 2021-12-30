@@ -1,7 +1,6 @@
 .navigation-btn {
   display: inline-block;
   width: auto;
-  margin-left: 2em;
 }
 
 mat-toolbar {
@@ -15,4 +14,9 @@ mat-toolbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 2rem;
+}
+
+.active-link {
+  color: gold;
 }

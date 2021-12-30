@@ -1,21 +1,24 @@
 <mat-toolbar color="primary">
-  <span>Social Together</span>
+  <button mat-icon-button color="basic" aria-label="Example icon-button with heart icon" routerLink="/"
+      class="navigation-btn">
+    <span><h2>Social Together</h2></span>
+  </button>
 
   <div id="nav-btn-container">
     <button mat-icon-button color="basic" aria-label="Example icon-button with heart icon" routerLink="/dev"
-      routerLinkActive="active" class="navigation-btn">
+      routerLinkActive="active-link" class="navigation-btn">
       <mat-icon>build</mat-icon>
       <span>Dev</span>
     </button>
 
     <button mat-icon-button color="basic" aria-label="Example icon-button with heart icon" routerLink="/show-posts"
-      routerLinkActive="active" class="navigation-btn">
+      routerLinkActive="active-link" class="navigation-btn">
       <mat-icon>face</mat-icon>
       <span>discover</span>
     </button>
 
     <button mat-icon-button color="basic" aria-label="Example icon-button with heart icon" routerLink="/create-post"
-      routerLinkActive="active" class="navigation-btn">
+      routerLinkActive="active-link" class="navigation-btn">
       <mat-icon>library_add</mat-icon>
       <span>create posts</span>
     </button>
