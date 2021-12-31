@@ -10,6 +10,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -49,6 +50,7 @@ import { PostOptionsDialogComponent } from './forms/show-forms/post-options-dial
     MatSnackBarModule,
     MatDialogModule,
     MatDividerModule,
+    MatSlideToggleModule,
     HttpClientModule
   ],
   providers: [],

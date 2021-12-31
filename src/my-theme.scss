@@ -35,6 +35,10 @@ $dark-theme: mat.define-dark-theme((
 // @include mat.core-theme($dark-theme);
 // @include mat.button-theme($my-theme);
 
-.light-theme-class {
+.dark-mode {
+  @include mat.all-component-themes($dark-theme);
+}
+
+.light-mode {
   @include mat.all-component-themes($light-theme);
 }
