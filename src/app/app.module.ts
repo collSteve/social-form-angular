@@ -24,6 +24,7 @@ import { HeaderComponent } from './header/header.component';
 import { DevShowCreatePostComponent } from './forms/dev-show-create-post/dev-show-create-post.component';
 import { AddImageDialogComponent } from './forms/add-image-dialog/add-image-dialog.component';
 import { PostOptionsDialogComponent } from './forms/show-forms/post-options-dialog/post-options-dialog.component';
+import { SinglePostViewComponent } from './forms/single-post-view/single-post-view.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { PostOptionsDialogComponent } from './forms/show-forms/post-options-dial
     HeaderComponent,
     DevShowCreatePostComponent,
     AddImageDialogComponent,
-    PostOptionsDialogComponent
+    PostOptionsDialogComponent,
+    SinglePostViewComponent
   ],
   imports: [
     BrowserModule,
