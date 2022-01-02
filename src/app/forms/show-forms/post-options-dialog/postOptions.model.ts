@@ -1,6 +1,7 @@
 export enum PostReturnAction {
   Edit,
   Delete,
+  GoToPost,
   None
 }
 

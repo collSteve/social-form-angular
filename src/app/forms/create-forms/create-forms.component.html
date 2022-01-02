@@ -8,7 +8,7 @@
       name="title"
       type="text"
       style="width: 100%;"
-      ngModel
+      [ngModel]="post.title?post.title:''"
       minlength="3"
       #postTitle="ngModel"
       required>
@@ -35,7 +35,7 @@
       <textarea matInput
       name="description"
       style="width: 100%;"
-      ngModel
+      [ngModel]="post.post_description?post.post_description:''"
       #postDescription="ngModel"
       required></textarea>
       <mat-error *ngIf="postDescription.invalid">Invalid description</mat-error>

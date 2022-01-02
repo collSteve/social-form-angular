@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { PostOptionsDialogInitData, PostOptionsDialogReturnData, PostReturnAction } from './postOptions.model';
 
 @Component({
@@ -12,6 +13,7 @@ export class PostOptionsDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<PostOptionsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: PostOptionsDialogInitData,
+    public router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,6 +30,15 @@ export class PostOptionsDialogComponent implements OnInit {
 
   onEditClick() {
     const result: PostOptionsDialogReturnData = {action: PostReturnAction.Edit};
+    // navigate to edit page
+    this.router.navigate(["/post/edit", this.data.post_id]);
+    this.dialogRef.close(result);
+  }
+
+  onGoToPostClick() {
+    const result: PostOptionsDialogReturnData = {action: PostReturnAction.GoToPost};
+    // navigate to edit page
+    this.router.navigate(["/post", this.data.post_id]);
     this.dialogRef.close(result);
   }
 

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Post, PostDeleteRequestResponseObject, PostPostRequestResponseObject, PostsGetRequestResponseObject } from './post.model';
+import { Post, PostDeleteRequestResponseObject, PostGetRequestResponseObject, PostPostRequestResponseObject, PostPutRequestObject, PostPutRequestResponseObject, PostsGetRequestResponseObject } from './post.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -55,6 +55,30 @@ export class PostsService {
       const updatedPosts = this.posts.filter(post=> post.id != post_id);
       this.posts = updatedPosts;
       this.postsUpdatedSubject.next(JSON.parse(JSON.stringify(this.posts)));
+    });
+  }
+
+  getPost(postId: string) {
+    return this.httpClient.get<PostGetRequestResponseObject>(`${this.base_URL}/posts/${postId}`);
+  }
+
+  updatePost(postId: string, post: Post) {
+    const newPost = JSON.parse(JSON.stringify(post));
+    console.log(newPost);
+    const request: PostPutRequestObject = {post: newPost};
+    this.httpClient.put<PostPutRequestResponseObject>(`${this.base_URL}/posts/${postId}`, request)
+    .subscribe((response)=>{
+      if (response.putSucceed) {
+        console.log("update post succeed");
+        // locally update posts
+        const updatedPosts = JSON.parse(JSON.stringify(this.posts));
+        const updateIndex = updatedPosts.findIndex((p:Post)=>p.id === postId);
+        updatedPosts[updateIndex] = newPost;
+        this.posts = updatedPosts;
+        this.postsUpdatedSubject.next(JSON.parse(JSON.stringify(this.posts)));
+      } else {
+        console.log("update post failed");
+      }
     });
   }
 }

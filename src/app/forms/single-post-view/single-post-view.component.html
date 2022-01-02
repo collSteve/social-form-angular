@@ -1,7 +1,26 @@
 
-<mat-card style="display: grid;">
-  <div id="image-area">
-    <img src="" alt="">
+<mat-card style="display: flex; flex-direction: column; width:80%; margin: auto;" >
+  <div class="post-header">
+    <div class="post-author-header">
+      <img class="profile-pic-icon" [src]="post.profile_pic" alt="">
+      <h4 style="font-weight: bold;">{{post.author}}</h4>
+    </div>
+    <button mat-button color="basic" (click)="onPostOptionsClicked(post.id? post.id: null)"><mat-icon>more_vert</mat-icon></button>
   </div>
-  <div id="des-area"></div>
+
+  <div id="content-area" style="display: flex; flex-direction: row; width: 100%; justify-content: space-between;">
+    <div id="image-area" style="width:63%; height: 100%" *ngIf="post.post_img && post.post_img!==''">
+      <img [src]="post.post_img"
+      alt="test"
+      style="margin:auto; width: 100%;">
+    </div>
+    <div id="des-area" style="width:34%; height: 100%">
+      <h4 *ngIf="post.title != null && post.title !=''">
+        {{post.title}}
+      </h4>
+      <app-form-descriptions [num_likes]="0" [description]="post.post_description">
+      </app-form-descriptions>
+    </div>
+  </div>
+
 </mat-card>

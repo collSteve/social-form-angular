@@ -29,6 +29,24 @@ export interface PostDeleteRequestResponseObject {
 
 }
 
+export interface PostGetRequestResponseObject {
+  post?: Post,
+  fetchSucceed: boolean,
+  status: number,
+  message?: string
+}
+
+export interface PostPutRequestObject {
+  post: Post
+}
+
+export interface PostPutRequestResponseObject {
+  post?: Post,
+  putSucceed: boolean,
+  status: number,
+  message?: string
+}
+
 export interface PostEmissionObject {
   post: Post
 }

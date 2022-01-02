@@ -1,11 +1,12 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Post, PostEmissionObject } from '../post.model';
+import { Post, PostEmissionObject, PostGetRequestResponseObject } from '../post.model';
 import { PostsService } from '../posts.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
 import { AddImageDialogData, AddImageDialogResult } from '../add-image-dialog/add-image-dialog.model';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-create-forms',
@@ -20,9 +21,45 @@ export class CreateFormsComponent implements OnInit {
 
   img_links: string[] = [];
 
-  constructor(private postsService: PostsService, private _snackBar: MatSnackBar, public dialog: MatDialog) { }
+  mode : "edit" | "create" = "create";
+
+  post_id:string |null = null;
+
+  constructor(private postsService: PostsService, private _snackBar: MatSnackBar,
+    public dialog: MatDialog, public router:ActivatedRoute) {
+
+    }
 
   ngOnInit(): void {
+    this.router.paramMap.subscribe((paramMap:ParamMap)=>{
+      if (paramMap.has("postId")) {
+        this.mode = "edit";
+        const postId = paramMap.get("postId");
+        if (postId) {
+          this.post_id = postId;
+          this.postsService.getPost(postId).subscribe(
+            (response: PostGetRequestResponseObject) =>{
+              if (response.fetchSucceed && response.post) {
+                this.post = response.post;
+                if (this.post.post_img) {
+                  this.img_links = [this.post.post_img];
+                }
+
+              }
+              else {
+                this.mode = "create";
+              }
+            }
+          );
+        }
+        else {
+          this.mode = "create";
+        }
+      }
+      else {
+        this.mode = "create";
+      }
+    });
   }
 
   showImagesList() {
@@ -40,8 +77,6 @@ export class CreateFormsComponent implements OnInit {
       return;
     }
 
-    this.post = {id:null, author:"Steve"};
-
     this.post.title = form.value.title;
     this.post.post_description = form.value.description;
     if (this.img_links.length > 0) {
@@ -49,10 +84,18 @@ export class CreateFormsComponent implements OnInit {
     }
 
     const new_post: Post = JSON.parse(JSON.stringify(this.post));
-    this.postsService.addPost(new_post);
 
-    form.resetForm();
-    this.openSnackBar("New post created successfully!", "close");
+    if (this.mode === "create") {
+      this.postsService.addPost(new_post);
+      form.resetForm();
+      this.openSnackBar("New post created successfully!", "close");
+      this.post = {id:null, author:"Steve"}; //  initialize post
+    }
+    else if (this.mode === "edit" && this.post_id) {
+      this.postsService.updatePost(this.post_id, this.post);
+      this.openSnackBar("Post edited successfully!", "close");
+    }
+
 
     // const e: PostEmissionObject = {post: new_post}; //  copy
     // this.postCreatedEventEmitter.emit(e);
