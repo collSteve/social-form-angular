@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Post, PostDeleteRequestResponseObject, PostGetRequestResponseObject, PostPostRequestResponseObject, PostPutRequestObject, PostPutRequestResponseObject, PostsGetRequestResponseObject } from './post.model';
 import { Subject, share } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class PostsService {
   private posts: Post[] = [];
   private postsUpdatedSubject: Subject<Post[]> = new Subject<Post[]>();
 
-  private base_URL: string = "http://localhost:3000/api";
+  private base_URL: string = `${environment.server_root_URL}/api`;
 
   constructor(private httpClient: HttpClient) { }
 
