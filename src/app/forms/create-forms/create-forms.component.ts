@@ -6,7 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { AddImageDialogComponent } from '../add-image-dialog/add-image-dialog.component';
 import { AddImageDialogData, AddImageDialogResult } from '../add-image-dialog/add-image-dialog.model';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-forms',
@@ -16,6 +16,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 export class CreateFormsComponent implements OnInit {
   post : Post = {author:"Steve", id:null};
   // postCreatedEventEmitter = new EventEmitter<PostEmissionObject>();
+  isLoading: boolean = false;
 
   num_show_images: number = 9;
 
@@ -26,12 +27,12 @@ export class CreateFormsComponent implements OnInit {
   post_id:string |null = null;
 
   constructor(private postsService: PostsService, private _snackBar: MatSnackBar,
-    public dialog: MatDialog, public router:ActivatedRoute) {
+    public dialog: MatDialog, public activatedRoute:ActivatedRoute, public router: Router) {
 
     }
 
   ngOnInit(): void {
-    this.router.paramMap.subscribe((paramMap:ParamMap)=>{
+    this.activatedRoute.paramMap.subscribe((paramMap:ParamMap)=>{
       if (paramMap.has("postId")) {
         this.mode = "edit";
         const postId = paramMap.get("postId");
@@ -85,15 +86,26 @@ export class CreateFormsComponent implements OnInit {
 
     const new_post: Post = JSON.parse(JSON.stringify(this.post));
 
+    this.isLoading = true;
     if (this.mode === "create") {
-      this.postsService.addPost(new_post);
-      form.resetForm();
-      this.openSnackBar("New post created successfully!", "close");
-      this.post = {id:null, author:"Steve"}; //  initialize post
+      const postRequest = this.postsService.addPost(new_post);
+      postRequest.subscribe(()=>{
+        form.resetForm();
+        this.openSnackBar("New post created successfully!", "close");
+        this.post = {id:null, author:"Steve"}; //  initialize post
+        this.router.navigate(["/"]); // direct to home page
+
+        this.isLoading = false;
+      });
     }
     else if (this.mode === "edit" && this.post_id) {
-      this.postsService.updatePost(this.post_id, this.post);
-      this.openSnackBar("Post edited successfully!", "close");
+      const putRequest = this.postsService.updatePost(this.post_id, this.post);
+      putRequest.subscribe(()=>{
+        this.openSnackBar("Post edited successfully!", "close");
+        this.router.navigate(["/"]); // direct to home page
+
+        this.isLoading = false;
+      });
     }
 
 

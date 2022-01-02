@@ -17,12 +17,18 @@ export class ShowFormsComponent implements OnInit, OnDestroy {
 
   private postsSubscription: Subscription|null = null;
 
+  isLoading:boolean = false;
+
   constructor(private postsService: PostsService, public optionsDialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.posts = this.postsService.getPosts();
     this.postsSubscription = this.postsService.getPostsUpdatedListener()
-    .subscribe((posts:Post[])=>{this.posts = posts});
+    .subscribe((posts:Post[])=>{
+      this.posts = posts;
+      this.isLoading = false;
+    });
   }
 
   ngOnDestroy() {

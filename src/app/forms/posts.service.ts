@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Post, PostDeleteRequestResponseObject, PostGetRequestResponseObject, PostPostRequestResponseObject, PostPutRequestObject, PostPutRequestResponseObject, PostsGetRequestResponseObject } from './post.model';
-import { Subject } from 'rxjs';
+import { Subject, share } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -29,9 +29,9 @@ export class PostsService {
 
   addPost(post: Post) {
     const copy_post:Post = JSON.parse(JSON.stringify(post));
-    const postRequest = {post: copy_post};
-    this.httpClient.post<PostPostRequestResponseObject>(`${this.base_URL}/posts`, postRequest)
-    .subscribe((postResponse)=>{
+    const postRequestObject = {post: copy_post};
+    const postRequest = this.httpClient.post<PostPostRequestResponseObject>(`${this.base_URL}/posts`, postRequestObject).pipe(share());
+    postRequest.subscribe((postResponse)=>{
       if (postResponse.addedPostSuccessful && postResponse.post_id) {
         // success
         console.log(postResponse.message);
@@ -40,8 +40,8 @@ export class PostsService {
         this.posts.push(copy_post);
         this.postsUpdatedSubject.next(JSON.parse(JSON.stringify(this.posts)));
       }
-
     });
+    return postRequest;
   }
 
   deletePost(post_id: string) {
@@ -66,8 +66,8 @@ export class PostsService {
     const newPost = JSON.parse(JSON.stringify(post));
     console.log(newPost);
     const request: PostPutRequestObject = {post: newPost};
-    this.httpClient.put<PostPutRequestResponseObject>(`${this.base_URL}/posts/${postId}`, request)
-    .subscribe((response)=>{
+    const putRequest = this.httpClient.put<PostPutRequestResponseObject>(`${this.base_URL}/posts/${postId}`, request).pipe(share());
+    putRequest.subscribe((response)=>{
       if (response.putSucceed) {
         console.log("update post succeed");
         // locally update posts
@@ -80,5 +80,7 @@ export class PostsService {
         console.log("update post failed");
       }
     });
+
+    return putRequest;
   }
 }

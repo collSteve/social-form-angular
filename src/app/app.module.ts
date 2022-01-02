@@ -11,6 +11,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -53,6 +54,7 @@ import { SinglePostViewComponent } from './forms/single-post-view/single-post-vi
     MatDialogModule,
     MatDividerModule,
     MatSlideToggleModule,
+    MatProgressBarModule,
     HttpClientModule
   ],
   providers: [],

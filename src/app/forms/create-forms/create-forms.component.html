@@ -1,3 +1,5 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
 <mat-card style="width: 80%; margin: auto;">
   <h4>Create a post</h4>
   <form (submit)="onPostClicked(postForm)" #postForm="ngForm" style="display: flex; flex-direction: column; justify-content: space-between; gap: 10px;">
