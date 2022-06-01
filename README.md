@@ -1,27 +1,18 @@
 # SocialFormAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
+This is my MEAN Stack project along with [Node Backend](https://github.com/collSteve/Social-Form-MEAN-Leanring-node-server). This project is the forntend part of the project and [Node Backend](https://github.com/collSteve/Social-Form-MEAN-Leanring-node-server) is the backend. 
 
-## Development server
+This project is current deployed as a Heroku App and live at [Here](https://social-together.herokuapp.com/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Current Version
 
-## Code scaffolding
+#### Dark Mode:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<img width="455" alt="1" src="https://user-images.githubusercontent.com/46071004/171308587-20f0e1ce-92e6-4bff-85d2-ef651af494f6.PNG">
+<img width="471" alt="2" src="https://user-images.githubusercontent.com/46071004/171308586-3aa61f4c-54ac-4b97-a327-1002fa2de7fb.PNG">
 
-## Build
+#### Light Mode:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<img width="454" alt="3" src="https://user-images.githubusercontent.com/46071004/171308625-7ae16735-fe08-4dc8-8bb7-ad44840c2776.PNG">
+<img width="472" alt="4" src="https://user-images.githubusercontent.com/46071004/171308621-c0c884fe-07db-4d94-bea4-1f9a02c01bb5.PNG">
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
