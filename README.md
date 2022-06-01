@@ -1,4 +1,4 @@
-# Social Form Angular Frontend
+# Social Together Angular Frontend
 
 This is my MEAN Stack project along with [Node Backend](https://github.com/collSteve/Social-Form-MEAN-Leanring-node-server). This project is the forntend part of the project and [Node Backend](https://github.com/collSteve/Social-Form-MEAN-Leanring-node-server) is the backend. 
 
